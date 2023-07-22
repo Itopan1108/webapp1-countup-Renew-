@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html iang="ja">
+  <head>
+    <base target="_top">
+    <meta charset="UTF-8">
+    <script >
+      let counter2, btnAdd2;
+      let n;
+
+      function addCount(){
+        n++;
+        counter.innerHTML = n;
+      }
+
+      window.addEventListener("load",()=>{
+        counter2 = document.getElementById("counter");
+        btnAdd2 = document.getElementById("btnAdd1")
+
+        n = 0;
+
+        btnAdd2.addEventListener("click", addCount);
+})
+    </script>
+    <title>webアプリ１（カウントアップ）</title>
+  </head>
+  <body>
+    <p id="counter">0</p>
+    <p><input type="button" id="btnAdd1" value="加算"></p>
+  </body>
+</html>
