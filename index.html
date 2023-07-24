@@ -4,7 +4,7 @@
     <base target="_top">
     <meta charset="UTF-8">
     <script >
-      let counter2, btnAdd2;
+      let btnAdd2;
       let n;
 
       function addCount(){
@@ -13,13 +13,12 @@
       }
 
       window.addEventListener("load",()=>{
-        counter2 = document.getElementById("counter");
         btnAdd2 = document.getElementById("btnAdd1")
 
         n = 0;
 
         btnAdd2.addEventListener("click", addCount);
-})
+     })
     </script>
     <title>webアプリ１（カウントアップ）</title>
   </head>
