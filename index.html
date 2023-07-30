@@ -6,10 +6,14 @@
     <script >
       let btnAdd2;
       let n;
-
+      // add ボタン押すと１加算
       function addCount(){
         n++;
         counter.innerHTML = n;
+      }
+      //  reset ボタン押すとZEROへ初期化
+      function resetCount(){
+        counter.innerHTML = 0;
       }
 
       window.addEventListener("load",()=>{
@@ -18,12 +22,14 @@
         n = 0;
 
         btnAdd2.addEventListener("click", addCount);
-     })
+        btnReset.addEventListener("click", resetCount);
+      })
     </script>
     <title>webアプリ１（カウントアップ）</title>
   </head>
   <body>
     <p id="counter">0</p>
     <p><input type="button" id="btnAdd1" value="加算"></p>
+    <p><input type="button" id="btnReset" value="最初から"></p>
   </body>
 </html>
