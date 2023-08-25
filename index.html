@@ -32,13 +32,40 @@
         counter.innerHTML = 0;
       }
 
+      //★２－１追加★ 保存する！ボタンを押下でスプレッドシートへ値を保存！
+      function setValue() {
+        const ss = SpreadsheetApp.openByID('10GkWRFS8PaaOk8r0YBU7P5xu4oyLSpUJH196g5j-REs');
+        const sheet = ss.getSheetByName('シート1');
+      // B2セルを選択
+      const range = sheet.getRange('B2');
+      const values = range.setValue(counter.innerHTML);
+      }
+      //
+      //
       window.addEventListener("load",()=>{
         btnAdd2 = document.getElementById("btnAdd1")
 
-        n = 0;
+          n = 0;
 
+      //  ★次の２－２ スプレッドシートから値を取得、表示用のため（途中）、以下コメント化★
+      //
+      //　load時のzero初期化をやめる  
+      //  n = 0;
+      // スプレッドシート＆シートオブジェクトを取得
+      //  const ss = SpreadsheetApp.openByID('10GkWRFS8PaaOk8r0YBU7P5xu4oyLSpUJH196g5j-REs');
+      // 
+      //  const sheet = ss.getSheetByName('シート1');
+      // B2セルを選択
+      //  var range = sheet.getRange('B2');
+      // １つ以上のセル（今回は１つのセル）の値を取得
+      //  var values = range.getValues();
+      //
+      //
         btnAdd2.addEventListener("click", addCount);
         btnReset.addEventListener("click", resetCount);
+      //★２－１追加★
+        btnModify.addEventListener("click", setValue);
+      //
       })
     </script>
     <title>webアプリ１（カウントアップ）</title>
@@ -47,5 +74,7 @@
     <p id="counter">0</p>
     <p><input type="button" id="btnAdd1" value="加算"></p>
     <p><input type="button" id="btnReset" value="最初から"></p>
+    <!-- ★２－１追加★ 保存ボタンを追加 -->
+    <p><input type="submit" id="btnModify" value="保存する！"></p>
   </body>
 </html>
