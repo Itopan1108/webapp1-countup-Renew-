@@ -11,12 +11,3 @@ function setSheetData(Value) {
   const range = sheet.getRange('B2')
   range.setValue(Value);
 }
-
-//function doPost(e) {
-//const count = e.parameter['counter'];
-//const ss2 = SpreadsheetApp.openById("10GkWRFS8PaaOk8r0YBU7P5xu4oyLSpUJH196g5j-REs");
-//const sheet = ss2.getSheetByName('シート1');
-//const range = sheet.getRange('B2');
-//const value = document.getElementById('count').value;
-//range.setValue(value);
-//}

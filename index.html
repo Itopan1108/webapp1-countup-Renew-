@@ -39,20 +39,10 @@
         google.script.run.setSheetData(value); 
       }
 
-      //★２－１追加★ 保存する！ボタンを押下でスプレッドシートへ値を保存！
-      //function setValue() {
-      //const ss = SpreadsheetApp.openByid('10GkWRFS8PaaOk8r0YBU7P5xu4oyLSpUJH196g5j-REs');     
-      //const sheet = ss.getSheetByName('シート1');
-      // B2セルを選択
-      //const range = sheet.getRange('B2');
-      //const values = range.setValue(counter.innerHTML);
-      //}
-      //
-      //
       window.addEventListener("load",()=>{
         btnAdd2 = document.getElementById("btnAdd1")
 
-          n = 0;
+        n = 0;
 
       //  ★次の２－２ スプレッドシートから値を取得、表示用のため（途中）、以下コメント化★
       //
@@ -76,14 +66,6 @@
     <title>webアプリ１（カウントアップ）</title>
   </head>
   <body>
-    <!-- ★２－１追加★ 保存ボタン(post)を追加 -->
-    <!-- <form action="https://script.google.com/a/macros/esm.co.jp/s/AKfycbyNnhGp4HTPf2mPsRn7SksZYo7BrySizHxZmF7vRTNsBq6L3by_8aW4taIq7rLboqY/exec"
-     method="post">
-     <p id="counter" >0</p>
-    <p><input type="button" id="btnAdd1" value="加算"></p>
-    <p><input type="button" id="btnReset" value="最初から"></p>
-    <input type="submit" >
-    </form>  -->
 
     <p id="counter" >0</p>
     <p><input type="button" id="btnAdd1" value="加算"></p>
