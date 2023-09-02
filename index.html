@@ -19,16 +19,15 @@
      }
     </style>
     <script >
-      let btnAdd2;
-      let n;
+      let num;
       // add ボタン押すと１加算
       function addCount(){
-        n++;
-        counter.innerHTML = n;
+        num++;
+        counter.innerHTML = num;
       }
       //  reset ボタン押すとZEROへ初期化
       function resetCount(){
-        n = 0;
+        num = 0;
         counter.innerHTML = 0;
       }
       //★２－１追加★
@@ -40,14 +39,11 @@
       }
 
       window.addEventListener("load",()=>{
-        btnAdd2 = document.getElementById("btnAdd1");
-
       // ２－２ スプレッドシートから値を取得、表示用する
-      //load時のzero初期化をやめる  
-      //  n = 0;
-          n = <?= values ?>;
+      //　load時のzero初期化をやめ、スプレッドシートから取得した値を格納する
+              num = <?= values ?>;
       //
-        btnAdd2.addEventListener("click", addCount);
+        btnAdd1.addEventListener("click", addCount);
         btnReset.addEventListener("click", resetCount);
 
       })
