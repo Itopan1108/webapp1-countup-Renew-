@@ -5,31 +5,46 @@
     <meta charset="UTF-8">
     <style>
      #counter{
-      width: 100%;
-      font-size: 64pt;
+      width: 50%;
+      font-size: 32pt;
       text-align: center;
       background-color: #fa8072;
      }
-
-     #btnAdd1,#btnReset{
-      width: 100%;
-      font-size: 32pt;
-      text-align: center;
-      background-color: yellow;
-     }
     </style>
+    <title>webアプリ１（カウントアップ）</title>
+  </head>
+  
+  <body>
+    <div id="app">
+      <p id="counter">{{count}}</p><p>回クリックしたぞ！！</p>
+      <br><button v-on:click="increment">加算！！</button></br> 
+      <br><button v-on:click="clear">初期化！！</button></br> 
+    </div>
+    <br><input type="submit" id='submit' onclick='output()' /></br> 
+
+    <script src="https://cdn.jsdelivr.net/npm/vue@2.7.11/dist/vue.js"></script> 
     <script >
-      let num;
-      // add ボタン押すと１加算
-      function addCount(){
-        num++;
-        counter.innerHTML = num;
-      }
-      //  reset ボタン押すとZEROへ初期化
-      function resetCount(){
-        num = 0;
-        counter.innerHTML = 0;
-      }
+      window.addEventListener("load",()=>{
+      //doget関数を起動している
+      })
+
+      let count = Number("<?= values ?>");
+      
+      new Vue({
+       el: '#app',
+       data: {
+       count: count
+       },
+       methods: {
+       increment: function() {
+         this.count += 1
+         },
+       clear: function() {
+         this.count = 0
+         }     
+       }
+      })
+
       //★２－１追加★
       function output() {
       // 1. テキストボックスに入力した値を取得します。
@@ -38,22 +53,5 @@
         google.script.run.setSheetData(value); 
       }
 
-      window.addEventListener("load",()=>{
-      // ２－２ スプレッドシートから値を取得、表示用する
-      //　load時のzero初期化をやめ、スプレッドシートから取得した値を格納する
-              num = <?= values ?>;
-      //
-        btnAdd1.addEventListener("click", addCount);
-        btnReset.addEventListener("click", resetCount);
-
-      })
     </script>
-    <title>webアプリ１（カウントアップ）</title>
-  </head>
-  <body>
-    <p id="counter"><?= values ?></p>
-    <p><input type="button" id="btnAdd1" value="加算"></p>
-    <p><input type="button" id="btnReset" value="最初から"></p>
-    <input type="submit" id='submit' onclick='output()' />
   </body>
-  
