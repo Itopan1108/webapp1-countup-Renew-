@@ -19,16 +19,13 @@
       <p id="counter">{{count}}</p><p>回クリックしたぞ！！</p>
       <br><button v-on:click="increment">加算！！</button></br> 
       <br><button v-on:click="clear">初期化！！</button></br> 
+      <br><button v-on:click="output">更新！！</button></br> 
     </div>
-    <br><input type="submit" id='submit' onclick='output()' /></br> 
-
+    
     <script src="https://cdn.jsdelivr.net/npm/vue@2.7.11/dist/vue.js"></script> 
     <script >
-      window.addEventListener("load",()=>{
-      //doget関数を起動している
-      })
 
-      let count = Number("<?= values ?>");
+      let count = Number("<?= value ?>");
       
       new Vue({
        el: '#app',
@@ -41,17 +38,11 @@
          },
        clear: function() {
          this.count = 0
+         },
+       output: function() {
+         google.script.run.setSheetData(this.count);
          }     
        }
       })
-
-      //★２－１追加★
-      function output() {
-      // 1. テキストボックスに入力した値を取得します。
-        const value = document.getElementById('counter').innerHTML;
-      // 2. 取得した値を setSheetData関数の引数として設定して呼び出します。
-        google.script.run.setSheetData(value); 
-      }
-
     </script>
   </body>
