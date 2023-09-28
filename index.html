@@ -13,24 +13,26 @@
     </style>
     <title>webアプリ１（カウントアップ）</title>
   </head>
-  
+ 
   <body>
     <div id="app">
       <p id="counter">{{count}}</p><p>回クリックしたぞ！！</p>
-      <br><button v-on:click="increment">加算！！</button></br> 
-      <br><button v-on:click="clear">初期化！！</button></br> 
-      <br><button v-on:click="output">更新！！</button></br> 
+      <br><button v-on:click="increment">加算！！</button></br>
+      <br><button v-on:click="clear">初期化！！</button></br>
+      <br><button v-on:click="output">更新！！</button></br>
     </div>
-    
-    <script src="https://cdn.jsdelivr.net/npm/vue@2.7.11/dist/vue.js"></script> 
+   
+    <script src="https://cdn.jsdelivr.net/npm/vue@2.7.11/dist/vue.js"></script>
     <script >
 
-      let count = Number("<?= value ?>");
-      
       new Vue({
        el: '#app',
        data: {
-       count: count
+       count: ""
+       },
+       created: function(){
+       google.script.run.
+       withSuccessHandler(this.initData).getSheetData();
        },
        methods: {
        increment: function() {
@@ -41,8 +43,12 @@
          },
        output: function() {
          google.script.run.setSheetData(this.count);
-         }     
+         },
+       initData: function(ssData) {
+         this.count = ssData;
+       }
        }
       })
     </script>
   </body>
+  

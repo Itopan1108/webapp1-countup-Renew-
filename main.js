@@ -1,13 +1,16 @@
-function doGet(e) {
+function doGet() {
   const template = HtmlService.createTemplateFromFile('index');
-  const ss = SpreadsheetApp.openById('10GkWRFS8PaaOk8r0YBU7P5xu4oyLSpUJH196g5j-REs');
-  const sheet = ss.getSheetByName('シート1');
+  return template.evaluate();
+}  
+
+function getSheetData() {
+  const spreadsheet = SpreadsheetApp.openById('10GkWRFS8PaaOk8r0YBU7P5xu4oyLSpUJH196g5j-REs');
+  const sheet = spreadsheet.getSheetByName('シート1');
   const range = sheet.getRange('B2');
   // １つ以上のセル（今回は１つのセル）の値を取得
-  const values = range.getValues();
-  // シートから取得した値を画面に渡す
-  template.values = values; 
-  return template.evaluate();
+  const value = range.getValue();
+  // シートから取得した値を画面に渡す 
+  return value;
 }
 
 function setSheetData(Value) {
