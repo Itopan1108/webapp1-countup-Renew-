@@ -3,30 +3,57 @@
   <head>
     <base target="_top">
     <meta charset="UTF-8">
-    <style>
+    <link href="https://fonts.googleapis.com/css?family=Roboto:100,300,400,500,700,900" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/@mdi/font@4.1/css/materialdesignicons.min.css" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/vuetify@2.7/dist/vuetify.min.css" rel="stylesheet">
+    <!-- <style>
      #counter{
       width: 50%;
       font-size: 32pt;
       text-align: center;
       background-color: #fa8072;
      }
-    </style>
+    </style>  -->
     <title>webアプリ１（カウントアップ）</title>
   </head>
  
   <body>
     <div id="app">
-      <p id="counter">{{count}}</p><p>回クリックしたぞ！！</p>
-      <br><button v-on:click="increment">加算！！</button></br>
-      <br><button v-on:click="clear">初期化！！</button></br>
-      <br><button v-on:click="output">更新！！</button></br>
+
+    <v-app>
+  
+      <v-card color="#B2DFDB">
+      <p class="text-h1 text-center pink--text">{{count}}</p>
+      <p class="text-h4 text-center">count number</p>
+      </v-card>
+
+      <v-card rounded color="green" max-width="100%" shaped elevation="9">
+        <v-card-actions>
+          <v-spacer></v-spacer>
+          <v-btn height="100" width="100" rounded v-on:click="increment" class="text-h5">＋１</v-btn>
+          <v-spacer></v-spacer>
+          <v-btn height="100" width="100" rounded v-on:click="clear" dark class="text-h5">ＺＥＲＯ</v-btn>
+          <v-spacer></v-spacer>
+        </v-card-actions>
+      </v-card>
+      <v-card rounded color="yellow" max-width="100%" shaped elevation="9">
+        <v-card-actions>
+          <v-spacer></v-spacer>
+          <v-btn height="100" width="100" outlined color="primary" v-on:click="output" class="text-h5">Update</v-btn>
+          <v-spacer></v-spacer>
+        </v-card-actions>
+      </v-card>
+
+    </v-app>
     </div>
    
     <script src="https://cdn.jsdelivr.net/npm/vue@2.7.11/dist/vue.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/vuetify@2.7/dist/vuetify.js"></script>
     <script >
 
       new Vue({
        el: '#app',
+       vuetify: new Vuetify(),
        data: {
        count: ""
        },
@@ -51,4 +78,3 @@
       })
     </script>
   </body>
-  
