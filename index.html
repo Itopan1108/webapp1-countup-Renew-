@@ -11,6 +11,7 @@
   </head>
  
   <body>
+    <!-- カウントアップ対応 -->
     <div id="app">
      <v-app>
 
@@ -25,15 +26,15 @@
 
          <v-card color="white" shaped>
           <p class="text-h1 text-center pink--text">{{count}}</p>
-          <p class="text-h4 text-center">count number</p>
+          <p class="text-h4 text-center">回カウントしたよ</p>
          </v-card>
 
          <v-card color="green" >
            <v-card-actions>
            <v-spacer></v-spacer>
-           <v-btn height="100" width="100" rounded v-on:click="increment" class="text-h5">＋１</v-btn>
+           <v-btn height="100" width="100" rounded v-on:click="increment" class="text-h5">加算</v-btn>
            <v-spacer></v-spacer>
-           <v-btn height="100" width="100" rounded v-on:click="clear" dark class="text-h5">ＺＥＲＯ</v-btn>
+           <v-btn height="100" width="100" rounded v-on:click="clear" dark class="text-h5">初期値</v-btn>
            <v-spacer></v-spacer>
            </v-card-actions>
          </v-card>
@@ -41,7 +42,7 @@
          <v-card color="yellow" >
           <v-card-actions>
            <v-spacer></v-spacer>
-           <v-btn height="100" width="100" outlined color="primary" v-on:click="output" class="text-h5">Update</v-btn>
+           <v-btn height="100" width="100" outlined color="primary" v-on:click="output" class="text-h5">更新</v-btn>
            <v-spacer></v-spacer>
           </v-card-actions>
          </v-card>
