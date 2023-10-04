@@ -6,8 +6,6 @@
     <link href="https://fonts.googleapis.com/css?family=Roboto:100,300,400,500,700,900" rel="stylesheet">
     <link href="https://cdn.jsdelivr.net/npm/@mdi/font@4.1/css/materialdesignicons.min.css" rel="stylesheet">
     <link href="https://cdn.jsdelivr.net/npm/vuetify@2.7/dist/vuetify.min.css" rel="stylesheet">
-
-    <title>webアプリ１（カウントアップ）</title>
   </head>
  
   <body>
@@ -24,9 +22,9 @@
          cols=12 sm=12 md=8 lg=4 xl=3
         >
 
-         <v-card color="white" shaped>
-          <p class="text-h1 text-center pink--text">{{count}}</p>
-          <p class="text-h4 text-center">回カウントしたよ</p>
+         <v-card color="white" shaped>   
+          <v-row class="text-h1 text-center pink--text" style="height: 100px;" justify="center">{{count}}</v-row>
+          <v-row class="text-h6 text-center"  style="height: 50px;" justify="center">回カウントしたよ</v-row>
          </v-card>
 
          <v-card color="green" >
@@ -42,7 +40,7 @@
          <v-card color="yellow" >
           <v-card-actions>
            <v-spacer></v-spacer>
-           <v-btn height="100" width="100" outlined color="primary" v-on:click="output" class="text-h5">更新</v-btn>
+           <v-btn height="100" width="100"  outlined color="primary" v-on:click="output" class="text-h5">更新</v-btn>
            <v-spacer></v-spacer>
           </v-card-actions>
          </v-card>
@@ -84,5 +82,3 @@
       })
     </script>
   </body>
-
-  
