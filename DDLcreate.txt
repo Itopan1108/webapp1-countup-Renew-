@@ -1,0 +1,6 @@
+DDL作成
+
+CREATE TABLE countup(
+	count INT,
+	updated_at datetime,
+);
