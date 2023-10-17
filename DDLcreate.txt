@@ -1,0 +1,9 @@
+DDL作成
+
+CREATE TABLE countup(
+	id INT,
+	count_number INT,
+	created_at datetime,
+	updated_at datetime,
+	primary key(id)
+);
