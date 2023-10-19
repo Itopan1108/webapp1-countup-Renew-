@@ -1,9 +1,9 @@
 DDL作成
 
-CREATE TABLE countup(
-	id INT,
-	count_number INT,
-	created_at datetime,
-	updated_at datetime,
-	primary key(id)
+CREATE TABLE countup2(
+id INT,
+count_number INT,
+created_at timestamp not null default current_timestamp,
+updated_at timestamp not null default current_timestamp on update current_timestamp,
+primary key(id)
 );
