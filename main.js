@@ -25,37 +25,36 @@ function doGet() {
  }
 
 
- //（４－６ DBから値を取得する関数）
+   //（４－６ DBから値を取得する関数）
 
-function readFromTable() {
-  const connection = Jdbc.getCloudSqlConnection(url, userName, password);
-  const statement = connection.createStatement();
-  const results = statement.executeQuery('SELECT * FROM countup');
+ function readFromTable() {
+   const connection = Jdbc.getCloudSqlConnection(url, userName, password);
+   const statement = connection.createStatement();
+   const result = statement.executeQuery('SELECT * FROM countup2');
  
-  var  count_number = results.getInt('count_number');
-  Logger.log(count_number);
-  return count_number;   
+   var  countNumber = result.getInt('count_number');
+   Logger.log(countNumber);
+   return countNumber ;   
 
-  results.close();
-  statement.close();
-  connection.close();
-}
+   result.close();
+   statement.close();
+   connection.close();
+ }
 
-//（４－５ DBに値を更新する関数）
+  //（４－５ DBに値を更新する関数）
 
-function updateRecord(count_number) {
-  const connection = Jdbc.getCloudSqlConnection(url, userName, password);
+ function updateRecord(count_number) {
+   const connection = Jdbc.getCloudSqlConnection(url, userName, password);
 
-  const statement = connection.prepareStatement('INSERT INTO users (id, count_number) values (?, ?)  ON DUPLICATE KEY UPDATE id = ?');
-  statement.setInt(1, 1);
-  statement.setInt(2, count_number + 1);
-  statement.setInt(3, 1);
+   const statement = connection.prepareStatement('INSERT INTO countup2 (id, count_number) values (?, ?)  ON DUPLICATE KEY UPDATE id = ?');
+   statement.setInt(1, 1);
+   statement.setInt(2, count_number);
+   statement.setInt(3, 1);
 
-  const row = statement.executeUpdate();
-  Logger.log(row);
+   const row = statement.executeUpdate();
+   Logger.log(row);
 
-  connection.commit();
-  statement.close();
-  connection.close();
-}
-
+   connection.commit();
+   statement.close();
+   connection.close();
+ }
