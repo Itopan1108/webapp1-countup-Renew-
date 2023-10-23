@@ -1,4 +1,4 @@
-function doGet() {
+ function doGet() {
   const htmlOutput = HtmlService.createTemplateFromFile("index").evaluate();
    htmlOutput.setTitle('★カウントアップ★');
    return htmlOutput;
@@ -24,17 +24,23 @@ function doGet() {
    range.setValue(Value);
  }
 
-
    //（４－６ DBから値を取得する関数）
 
  function readFromTable() {
    const connection = Jdbc.getCloudSqlConnection(url, userName, password);
    const statement = connection.createStatement();
    const result = statement.executeQuery('SELECT * FROM countup2');
- 
-   var  countNumber = result.getInt('count_number');
-   Logger.log(countNumber);
-   return countNumber ;   
+   while (result.next()) {
+    const countNumber = result.getInt('count_number');
+    Logger.log(countNumber);
+    
+    if(countNumber.isEmpty()){
+     return ZERO;
+    }
+    else {
+     return countNumber ;   
+    }
+   }
 
    result.close();
    statement.close();
@@ -43,18 +49,17 @@ function doGet() {
 
   //（４－５ DBに値を更新する関数）
 
- function updateRecord(count_number) {
+ function updateRecord(count) {
    const connection = Jdbc.getCloudSqlConnection(url, userName, password);
 
    const statement = connection.prepareStatement('INSERT INTO countup2 (id, count_number) values (?, ?)  ON DUPLICATE KEY UPDATE id = ?');
    statement.setInt(1, 1);
-   statement.setInt(2, count_number);
+   statement.setInt(2, count);
    statement.setInt(3, 1);
 
    const row = statement.executeUpdate();
    Logger.log(row);
 
-   connection.commit();
    statement.close();
    connection.close();
  }
