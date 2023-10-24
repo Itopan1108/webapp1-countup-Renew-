@@ -1,4 +1,4 @@
- function doGet() {
+function doGet() {
   const htmlOutput = HtmlService.createTemplateFromFile("index").evaluate();
    htmlOutput.setTitle('★カウントアップ★');
    return htmlOutput;
@@ -51,11 +51,10 @@
 
  function updateRecord(count) {
    const connection = Jdbc.getCloudSqlConnection(url, userName, password);
-
-   const statement = connection.prepareStatement('INSERT INTO countup2 (id, count_number) values (?, ?)  ON DUPLICATE KEY UPDATE id = ?');
+   const statement = connection.prepareStatement('INSERT INTO countup2 (id, count_number) values (?, ?)  ON DUPLICATE KEY UPDATE count_number = ?');
    statement.setInt(1, 1);
    statement.setInt(2, count);
-   statement.setInt(3, 1);
+   statement.setInt(3, count);
 
    const row = statement.executeUpdate();
    Logger.log(row);
