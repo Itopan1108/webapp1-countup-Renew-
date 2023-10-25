@@ -1,4 +1,4 @@
-function doGet() {
+ function doGet() {
   const htmlOutput = HtmlService.createTemplateFromFile("index").evaluate();
    htmlOutput.setTitle('★カウントアップ★');
    return htmlOutput;
@@ -23,6 +23,15 @@ function doGet() {
    const range = sheet.getRange('B2')
    range.setValue(Value);
  }
+
+//（ＤＢ接続 部分）
+
+ const connectionName = PropertiesService.getScriptProperties().getProperty("connectionName");
+ const userName = PropertiesService.getScriptProperties().getProperty("userName");
+ const password = PropertiesService.getScriptProperties().getProperty("password");
+ const databaseName = PropertiesService.getScriptProperties().getProperty("databaseName");
+ const url = PropertiesService.getScriptProperties().getProperty("url");
+ 
 
    //（４－６ DBから値を取得する関数）
 
