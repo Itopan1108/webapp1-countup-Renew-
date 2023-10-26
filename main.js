@@ -1,4 +1,4 @@
- function doGet() {
+function doGet() {
   const htmlOutput = HtmlService.createTemplateFromFile("index").evaluate();
    htmlOutput.setTitle('★カウントアップ★');
    return htmlOutput;
@@ -26,11 +26,11 @@
 
 //（ＤＢ接続 部分）
 
- const connectionName = PropertiesService.getScriptProperties().getProperty("connectionName");
- const userName = PropertiesService.getScriptProperties().getProperty("userName");
- const password = PropertiesService.getScriptProperties().getProperty("password");
- const databaseName = PropertiesService.getScriptProperties().getProperty("databaseName");
- const url = PropertiesService.getScriptProperties().getProperty("url");
+ const CONNECTION_NAME = PropertiesService.getScriptProperties().getProperty("connectionName");
+ const USER_NAME = PropertiesService.getScriptProperties().getProperty("userName");
+ const PASSWORD = PropertiesService.getScriptProperties().getProperty("password");
+ const DATABASE_NAME = PropertiesService.getScriptProperties().getProperty("databaseName");
+ const URL = PropertiesService.getScriptProperties().getProperty("url");
  
 
    //（４－６ DBから値を取得する関数）
@@ -38,22 +38,20 @@
  function readFromTable() {
    const connection = Jdbc.getCloudSqlConnection(url, userName, password);
    const statement = connection.createStatement();
-   const result = statement.executeQuery('SELECT * FROM countup2');
-   while (result.next()) {
-    const countNumber = result.getInt('count_number');
+   const result = statement.executeQuery('SELECT * FROM countup2 WHERE id = 1');
+   // countNumberを初期化する。countNumberは再代入するのでlet
+   let countNumber = 0;
+   if (result.next()) {
+    // countNumberにDBから取得した値を設定する
+    countNumber = result.getInt('count_number');
     Logger.log(countNumber);
-    
-    if(countNumber.isEmpty()){
-     return ZERO;
-    }
-    else {
-     return countNumber ;   
-    }
    }
 
    result.close();
    statement.close();
    connection.close();
+   // DBのオブジェクトを開放してから呼び先に戻る
+   return countNumber;
  }
 
   //（４－５ DBに値を更新する関数）
