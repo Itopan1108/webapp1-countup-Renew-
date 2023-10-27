@@ -33,10 +33,11 @@ function doGet() {
  const URL = PropertiesService.getScriptProperties().getProperty("url");
  
 
+
    //（４－６ DBから値を取得する関数）
 
  function readFromTable() {
-   const connection = Jdbc.getCloudSqlConnection(url, userName, password);
+   const connection = Jdbc.getCloudSqlConnection(URL, USER_NAME, PASSWORD);
    const statement = connection.createStatement();
    const result = statement.executeQuery('SELECT * FROM countup2 WHERE id = 1');
    // countNumberを初期化する。countNumberは再代入するのでlet
@@ -57,7 +58,7 @@ function doGet() {
   //（４－５ DBに値を更新する関数）
 
  function updateRecord(count) {
-   const connection = Jdbc.getCloudSqlConnection(url, userName, password);
+   const connection = Jdbc.getCloudSqlConnection(URL, USER_NAME, PASSWORD);
    const statement = connection.prepareStatement('INSERT INTO countup2 (id, count_number) values (?, ?)  ON DUPLICATE KEY UPDATE count_number = ?');
    statement.setInt(1, 1);
    statement.setInt(2, count);
