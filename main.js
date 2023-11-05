@@ -4,36 +4,14 @@ function doGet() {
    return htmlOutput;
  }  
  
- function getSheetData() {
-   const spreadsheet = SpreadsheetApp.openById('10GkWRFS8PaaOk8r0YBU7P5xu4oyLSpUJH196g5j-REs');
-   const sheet = spreadsheet.getSheetByName('シート1');
-   const range = sheet.getRange('B2');
-   // １つ以上のセル（今回は１つのセル）の値を取得
-   const value = range.getValue();
-   // シートから取得した値を画面に渡す 
-   return value;
- }
- 
- function setSheetData(Value) {
-   // 1. スプレッドシートを特定して取得
-   const spreadsheet = SpreadsheetApp.openById("10GkWRFS8PaaOk8r0YBU7P5xu4oyLSpUJH196g5j-REs");
-   // 2. シートを特定して取得
-   const sheet = spreadsheet.getSheetByName('シート1');
-   // 3. セル（範囲）を特定して取得
-   const range = sheet.getRange('B2')
-   range.setValue(Value);
- }
-
 //（ＤＢ接続 部分）
 
- const CONNECTION_NAME = PropertiesService.getScriptProperties().getProperty("connectionName");
- const USER_NAME = PropertiesService.getScriptProperties().getProperty("userName");
- const PASSWORD = PropertiesService.getScriptProperties().getProperty("password");
- const DATABASE_NAME = PropertiesService.getScriptProperties().getProperty("databaseName");
- const URL = PropertiesService.getScriptProperties().getProperty("url");
+ const CONNECTION_NAME = PropertiesService.getScriptProperties().getProperty('connectionName');
+ const USER_NAME = PropertiesService.getScriptProperties().getProperty('userName');
+ const PASSWORD = PropertiesService.getScriptProperties().getProperty('password');
+ const DATABASE_NAME = PropertiesService.getScriptProperties().getProperty('databaseName');
+ const URL = 'jdbc:google:mysql://' + CONNECTION_NAME + '/' + DATABASE_NAME;
  
-
-
    //（４－６ DBから値を取得する関数）
 
  function readFromTable() {
@@ -47,7 +25,6 @@ function doGet() {
     countNumber = result.getInt('count_number');
     Logger.log(countNumber);
    }
-
    result.close();
    statement.close();
    connection.close();
