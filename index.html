@@ -1,118 +1,119 @@
 <!DOCTYPE html>
 <html iang="ja">
-<head>
-<base target="_top">
-<meta charset="UTF-8">
-<link href="https://fonts.googleapis.com/css?family=Roboto:100,300,400,500,700,900" rel="stylesheet">
-<link href="https://cdn.jsdelivr.net/npm/@mdi/font@4.1/css/materialdesignicons.min.css" rel="stylesheet">
-<link href="https://cdn.jsdelivr.net/npm/vuetify@2.7/dist/vuetify.min.css" rel="stylesheet">
-</head>
-<body>
-<!-- カウントアップ対応 -->
-<div id="app">
-<v-app>
-　// ローディング中は、オーバーレイを表示
-  <v-overlay :value="isLoading">
-    <v-progress-circular 
-      indeterminate 
-      color="purple" 
-      size="64" />
-    </v-progress-circular>
-  </v-overlay>
-  
-<v-container fluid>
-<v-row
-class="blue lighten-4" style="height: 700px;"
-justify="center" align-content="center"
->
-<v-col
-cols=12 sm=12 md=8 lg=4 xl=3
->
+  <head>
+    <base target="_top">
+    <meta charset="UTF-8">
+    <link href="https://fonts.googleapis.com/css?family=Roboto:100,300,400,500,700,900" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/@mdi/font@4.1/css/materialdesignicons.min.css" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/vuetify@2.7/dist/vuetify.min.css" rel="stylesheet">
+  </head>
+ 
+  <body>
+    <!-- カウントアップ対応 -->
+    <div id="app">
+     <v-app>
+       <!-- ローディング中は、オーバーレイを表示 -->
+       <v-overlay :value="isLoading">
+        <v-progress-circular 
+         indeterminate 
+         color="purple" 
+         size="64" />
+        </v-progress-circular>
+       </v-overlay>
 
-<v-card color="white" shaped>
-<v-row class="text-h1 text-center pink--text" style="height: 100px;" justify="center">{{count}}</v-row>
-<v-row class="text-h6 text-center" style="height: 50px;" justify="center">回カウントしたよ</v-row>
-</v-card>
+      <v-container fluid>
+       <v-row
+        class="blue lighten-4" style="height: 700px;"
+        justify="center" align-content="center"
+       >
+        <v-col
+         cols=12 sm=12 md=8 lg=4 xl=3
+        >
 
-<v-card color="green" >
-<v-card-actions>
-<v-spacer></v-spacer>
-<v-btn height="100" width="100" rounded v-on:click="increment" class="text-h5">加算</v-btn>
-<v-spacer></v-spacer>
-<v-btn height="100" width="100" rounded v-on:click="clear" dark class="text-h5">初期値</v-btn>
-<v-spacer></v-spacer>
-</v-card-actions>
-</v-card>
+         <v-card color="white" shaped>   
+          <v-row class="text-h1 text-center pink--text" style="height: 100px;" justify="center">{{count}}</v-row>
+          <v-row class="text-h6 text-center"  style="height: 50px;" justify="center">回カウントしたよ</v-row>
+         </v-card>
 
-<v-card color="yellow" >
-<v-card-actions>
-<v-spacer></v-spacer>
-<v-btn height="100" width="100" outlined color="primary" v-on:click="output" class="text-h5">更新</v-btn>
-<v-spacer></v-spacer>
-</v-card-actions>
-</v-card>
+         <v-card color="green" >
+          <v-card-actions>
+          <v-spacer></v-spacer>
+          <v-btn height="100" width="100" rounded v-on:click="increment" class="text-h5">加算</v-btn>
+          <v-spacer></v-spacer>
+          <v-btn height="100" width="100" rounded v-on:click="clear" dark class="text-h5">初期値</v-btn>
+          <v-spacer></v-spacer>
+          </v-card-actions>
+         </v-card>
 
-</v-col>
-</v-row>
-</v-container>
-</v-app>
-</div>
-<script src="https://cdn.jsdelivr.net/npm/vue@2.7.11/dist/vue.js"></script>
-<script src="https://cdn.jsdelivr.net/npm/vuetify@2.7/dist/vuetify.js"></script>
-<script >
+         <v-card color="yellow" >
+          <v-card-actions>
+          <v-spacer></v-spacer>
+          <v-btn height="100" width="100"  outlined color="primary" v-on:click="output" class="text-h5">更新</v-btn>
+          <v-spacer></v-spacer>
+          </v-card-actions>
+         </v-card>
 
-async function GasReadAsync() {
-return await new Promise((resolve, reject) => {
-google.script.run
-.withSuccessHandler((result) => resolve(result))
-.withFailureHandler((error) => resolve(error))
-.readFromTable();
-});
-}
+        </v-col>
+       </v-row>
+      </v-container>
+     </v-app>
+    </div>
+   
+    <script src="https://cdn.jsdelivr.net/npm/vue@2.7.11/dist/vue.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/vuetify@2.7/dist/vuetify.js"></script>
+    <script >
+    
+     async function GasReadAsync() {
+      return await new Promise((resolve, reject) => {
+      google.script.run
+      .withSuccessHandler((result) => resolve(result))
+      .withFailureHandler((error) => resolve(error))
+      .readFromTable();
+      });
+     }
+      
+     async function GasUpdateAsync(count) {
+      return new Promise(resolve => {
+      google.script.run.updateRecord(count)
+      });
+     }
 
-async function GasUpdateAsync(count) {
-return new Promise(resolve => {
-google.script.run.updateRecord(count)
-});
-}
+      new Vue({
+       el: '#app',
+       vuetify: new Vuetify(),
+       data: {
+       count: "",
+       //ローディングの初期値はtrue
+       isLoading: true,
+       },
+       created: async function(){
+        this.count = await GasReadAsync();
 
-new Vue({
-el: '#app',
-vuetify: new Vuetify(),
-data: {
-count: "",
-//ローディングの初期値はtrue
-isLoading: true,
-},
-created: async function(){
-this.count = await GasReadAsync();
+        // ローディングが終わったら、オーバーレイ表示をオフ
+        this.isLoading = false;
+       },
+       methods: {
+        increment: function() {
+         this.count += 1
+         },
+        clear: function() {
+         this.count = 0
+         },
+        output: async function() {
+         // ＤＢ更新中は、オーバーレイ表示
+         this.isLoading = true;
+         // ３秒後、オーバーレイ表示をオフ
+         setTimeout(() => {
+          this.isLoading = false;
+         }, 3000);
 
-// ローディングが終わったら、オーバーレイ表示をオフ
-this.isLoading = false;
-},
-methods: {
-increment: function() {
-this.count += 1
-},
-clear: function() {
-this.count = 0
-},
-output: async function() {
-// ＤＢ更新中は、オーバーレイ表示
-this.isLoading = true;
-// ３秒後、オーバーレイ表示をオフ
-setTimeout(() => {
-      this.isLoading = false;
-    }, 3000);
-
-await GasUpdateAsync(this.count);
-
-},
-
-initData: function(ssData) {
-this.count = ssData;
-}
-}
-})
-</script>
-</body>
+        await GasUpdateAsync(this.count);
+        },
+            
+        initData: function(ssData) {
+         this.count = ssData;
+        }
+       }
+      })
+    </script>
+  </body>
