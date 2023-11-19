@@ -63,7 +63,7 @@
        },
        created: function(){
        google.script.run.
-       withSuccessHandler(this.initData).getSheetData();
+       withSuccessHandler(this.initData).readFromTable();
        },
        methods: {
        increment: function() {
@@ -73,7 +73,7 @@
          this.count = 0
          },
        output: function() {
-         google.script.run.setSheetData(this.count);
+         google.script.run.updateRecord(this.count);
          },
        initData: function(ssData) {
          this.count = ssData;
@@ -82,4 +82,3 @@
       })
     </script>
   </body>
-
