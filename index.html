@@ -62,24 +62,6 @@
     <script src="https://cdn.jsdelivr.net/npm/vue@2.7.11/dist/vue.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/vuetify@2.7/dist/vuetify.js"></script>
     <script >
-      
-     //function getCounterInfo() {
-     // return new Promise((resolve, reject) => {
-     // google.script.run
-     // .withSuccessHandler((result) => resolve(result))
-     // .withFailureHandler((error) => reject(error))
-     // .readFromTable();
-     // });
-     //}
-
-     //function updateCounterInfo(count) {
-     // return new Promise((resolve, reject) => {
-     // google.script.run
-     // .withSuccessHandler((result) => resolve(result))
-     // .withFailureHandler((error) => reject(error))
-     // .updateRecord(count)
-     // });
-     //}
 
       new Vue({
        el: '#app',
@@ -96,7 +78,7 @@
          this.count = await this.getCounterInfo();
         }
         catch (e){
-        alert (e)
+         alert (e)
         }
         // ローディングが終わったら、オーバーレイ表示をオフ
         this.isLoading = false;
@@ -104,18 +86,18 @@
        methods: {
         increment: function() {
          this.count += 1
-         },
+        },
         clear: function() {
          this.count = 0
-         },
+        },
 
         getCounterInfo: function() {
          return new Promise((resolve, reject) => {
-         google.script.run
-         .withSuccessHandler((result) => resolve(result))
-         .withFailureHandler((error) => reject(error))
-         .readFromTable();
-        });
+          google.script.run
+          .withSuccessHandler((result) => resolve(result))
+          .withFailureHandler((error) => reject(error))
+          .readFromTable();
+         });
         },
 
         output: async function() {
