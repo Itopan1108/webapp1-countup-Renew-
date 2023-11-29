@@ -12,6 +12,14 @@
     <!-- カウントアップ対応 -->
     <div id="app">
      <v-app>
+       <!-- ローディング中は、オーバーレイを表示 -->
+       <v-overlay :value="isLoading">
+        <v-progress-circular 
+         indeterminate 
+         color="purple" 
+         size="64" />
+        </v-progress-circular>
+       </v-overlay>
 
       <v-container fluid>
        <v-row
@@ -59,26 +67,61 @@
        el: '#app',
        vuetify: new Vuetify(),
        data: {
-       count: ""
+       count: "",
+       //ローディングの初期値はfalse
+       isLoading: false,
        },
-       created: function(){
-       google.script.run.
-       withSuccessHandler(this.initData).readFromTable();
+       created: async function(){
+        this.isLoading = true;
+       //エラー時のメッセージ出力対応
+        try {
+         this.count = await this.getCounterInfo();
+        }catch (e){
+         alert (e)
+         }
+        // ローディングが終わったら、オーバーレイ表示をオフ
+        this.isLoading = false;
        },
        methods: {
-       increment: function() {
+        increment: function() {
          this.count += 1
-         },
-       clear: function() {
+        },
+        clear: function() {
          this.count = 0
-         },
-       output: function() {
-         google.script.run.updateRecord(this.count);
-         },
-       initData: function(ssData) {
-         this.count = ssData;
-       }
+        },
+
+        getCounterInfo: function() {
+         return new Promise((resolve, reject) => {
+          google.script.run
+          .withSuccessHandler((result) => resolve(result))
+          .withFailureHandler((error) => reject(error))
+          .readFromTable();
+         });
+        },
+
+        output: async function() {
+         // ＤＢ更新中は、オーバーレイ表示
+         this.isLoading = true;
+       //エラー時のメッセージ出力対応
+        try {       
+         await this.updateCounterInfo(this.count);
+        }catch (e){
+          alert(e)
+         }
+         // オーバーレイ表示をオフ
+         this.isLoading = false;
+        },
+
+        updateCounterInfo: function(count) {
+         return new Promise((resolve, reject) => {
+         google.script.run
+         .withSuccessHandler((result) => resolve(result))
+         .withFailureHandler((error) => reject(error))
+         .updateRecord(count)
+        });
+        }    
        }
       })
     </script>
   </body>
+ 

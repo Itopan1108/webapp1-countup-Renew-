@@ -1,9 +1,9 @@
-function doGet() {
+ function doGet() {
   const htmlOutput = HtmlService.createTemplateFromFile("index").evaluate();
    htmlOutput.setTitle('★カウントアップ★');
    return htmlOutput;
- }  
- 
+ } 
+
 //（ＤＢ接続 部分）
 
  const CONNECTION_NAME = PropertiesService.getScriptProperties().getProperty('connectionName');
@@ -11,7 +11,7 @@ function doGet() {
  const PASSWORD = PropertiesService.getScriptProperties().getProperty('password');
  const DATABASE_NAME = PropertiesService.getScriptProperties().getProperty('databaseName');
  const URL = 'jdbc:google:mysql://' + CONNECTION_NAME + '/' + DATABASE_NAME;
- 
+
    //（４－６ DBから値を取得する関数）
 
  function readFromTable() {
